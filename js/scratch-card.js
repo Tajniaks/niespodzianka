@@ -1,9 +1,9 @@
-(function(){
+(function () {
 
   'use strict';
 
   var canvas = document.getElementById('scratch'),
-      context = canvas.getContext('2d');
+    context = canvas.getContext('2d');
 
   // default value
   context.globalCompositeOperation = 'source-over';
@@ -15,10 +15,20 @@
   x = y = radius = 150 / 2;
 
   // fill circle
-  context.beginPath();
+  var blueprint_background = new Image();
+  blueprint_background.src = 'img/foreground.png';
+  blueprint_background.onload = function () {
+    var pattern = context.createPattern(this, "repeat");
+    context.beginPath();
+    context.fillStyle = pattern;
+    context.rect(0, 0, 500, 500);
+    context.fill();
+  };
+
+  /*context.beginPath();
   context.fillStyle = '#515151';
-  context.rect(0, 0, 300, 60);
-  context.fill();
+  context.rect(0, 0, 500, 500);
+  context.fill();*/
 
   //----------------------------------------------------------------------------
 
@@ -31,14 +41,14 @@
     context.fill();
   }
 
-  canvas.addEventListener('mousedown', function(event) {
+  canvas.addEventListener('mousedown', function (event) {
     isDrag = true;
 
     clearArc(event.offsetX, event.offsetY);
     judgeVisible();
   }, false);
 
-  canvas.addEventListener('mousemove', function(event) {
+  canvas.addEventListener('mousemove', function (event) {
     if (!isDrag) {
       return;
     }
@@ -47,17 +57,17 @@
     judgeVisible();
   }, false);
 
-  canvas.addEventListener('mouseup', function(event) {
+  canvas.addEventListener('mouseup', function (event) {
     isDrag = false;
   }, false);
 
-  canvas.addEventListener('mouseleave', function(event) {
+  canvas.addEventListener('mouseleave', function (event) {
     isDrag = false;
   }, false);
 
   //----------------------------------------------------------------------------
 
-  canvas.addEventListener('touchstart', function(event) {
+  canvas.addEventListener('touchstart', function (event) {
     if (event.targetTouches.length !== 1) {
       return;
     }
@@ -70,7 +80,7 @@
     judgeVisible();
   }, false);
 
-  canvas.addEventListener('touchmove', function(event) {
+  canvas.addEventListener('touchmove', function (event) {
     if (!isDrag || event.targetTouches.length !== 1) {
       return;
     }
@@ -81,7 +91,7 @@
     judgeVisible();
   }, false);
 
-  canvas.addEventListener('touchend', function(event) {
+  canvas.addEventListener('touchend', function (event) {
     isDrag = false;
   }, false);
 
@@ -89,9 +99,9 @@
 
   function judgeVisible() {
     var imageData = context.getImageData(0, 0, 150, 150),
-        pixels = imageData.data,
-        result = {},
-        i, len;
+      pixels = imageData.data,
+      result = {},
+      i, len;
 
     // count alpha values
     for (i = 3, len = pixels.length; i < len; i += 4) {
@@ -99,10 +109,10 @@
       result[pixels[i]]++;
     }
 
-    document.getElementById('gray-count').innerHTML = result[255];
-    document.getElementById('erase-count').innerHTML = result[0];
+    //document.getElementById('gray-count').innerHTML = result[255];
+    //document.getElementById('erase-count').innerHTML = result[0];
   }
 
-  document.addEventListener('DOMContentLoaded', judgeVisible, false);
+  //document.addEventListener('DOMContentLoaded', judgeVisible, false);
 
 }());
