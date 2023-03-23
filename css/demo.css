@@ -31,7 +31,6 @@ body{
 .action{
    text-align: center;
    display: block;
-   margin-top: 20px;
 }
 
 a.btn {
@@ -78,13 +77,6 @@ a.btn:hover{
 }
 .credit a:hover{
    color: #1DBF73; 
-}
-.credit a:hover:after{
-    font-family: FontAwesome;
-    content: "\f08e";
-    font-size: 9pt;
-    position: absolute;
-    margin: 3px;
 }
 main{
   background: #fff;
