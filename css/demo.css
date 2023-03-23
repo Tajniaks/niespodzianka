@@ -103,17 +103,6 @@ article p{
    font-size: 15px;
     line-height: 1.5;
 }
- 
-@media only screen and (min-width: 720px){
-    main{
-      max-width: 720px;
-      margin-left: auto;
-      margin-right: auto; 
-      padding: 24px;
-    }
-
-
-}
 
 .set-overlayer,
 .set-glass,

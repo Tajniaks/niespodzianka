@@ -48,7 +48,23 @@
     judgeVisible();
   }, false);
 
+  canvas.addEventListener('touchstart', function (event) {
+    isDrag = true;
+
+    clearArc(event.offsetX, event.offsetY);
+    judgeVisible();
+  }, false);
+
   canvas.addEventListener('mousemove', function (event) {
+    if (!isDrag) {
+      return;
+    }
+
+    clearArc(event.offsetX, event.offsetY);
+    judgeVisible();
+  }, false);
+
+  canvas.addEventListener('touchmove', function (event) {
     if (!isDrag) {
       return;
     }
@@ -61,9 +77,13 @@
     isDrag = false;
   }, false);
 
-  canvas.addEventListener('mouseleave', function (event) {
+  canvas.addEventListener('touchend', function (event) {
     isDrag = false;
   }, false);
+
+  /*canvas.addEventListener('mouseleave', function (event) {
+    isDrag = false;
+  }, false);*/
 
   //----------------------------------------------------------------------------
 
